@@ -1,10 +1,10 @@
-const express = require('express');
-const app = express();
+require('dotenv').config();
+const mongoose = require('mongoose');
+const app = require('./app');
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
-
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        app.listen(process.env.PORT, () =>
+            console.log('Server running')
+        );
+    });
